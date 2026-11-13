@@ -8624,6 +8624,56 @@ This filter supports the following @ref{commands} that corresponds to option of 
 @item planes
 @end table
 
+@section aniso
+
+Apply Perona-Malik anisotropic diffusion denoising. The filter reduces noise
+in flat areas while preserving edges by using a diffusivity coefficient that
+decreases as the local gradient increases.
+
+The filter accepts the following options:
+
+@table @option
+@item iterations
+Set the number of diffusion iterations. Default is 5.
+Allowed range is from 1 to 100.
+
+@item kappa
+Set the edge threshold. Smaller values preserve more edges, while larger
+values allow more smoothing across gradients. The value is expressed in
+8-bit sample units and is automatically scaled for 10-bit and 12-bit input.
+Default is 10. Allowed range is from 0.001 to 255.
+
+@item lambda, timestep
+Set the time step of each diffusion iteration. Default is 0.2.
+Allowed range is from 0.001 to 0.25. For stability with four-neighbor
+diffusion, values greater than 0.25 are not accepted.
+
+@item reset
+Reset the diffusion state to the current input frame before processing.
+This is enabled by default. If disabled, the previous filtered frame is used
+as the initial state of the next frame.
+
+@item planes
+Set which planes to filter as a bitmask. Plane 0 is luma, planes 1 and 2 are
+chroma. Default is 1, which filters only luma. Set to 7 to filter all planes.
+Allowed range is from 0 to 15.
+@end table
+
+The filter supports gray, YUV 4:2:0, YUV 4:2:2 and YUV 4:4:4 input at
+8, 10 and 12 bits per sample.
+
+@subsection Examples
+
+Denoise luma with five iterations using the default parameters:
+@example
+aniso
+@end example
+
+Filter all planes with a stronger edge threshold:
+@example
+aniso=iterations=10:kappa=20:lambda=0.15:planes=7
+@end example
+
 @section ass
 
 Same as the @ref{subtitles} filter, except that it doesn't require libavcodec

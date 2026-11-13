@@ -686,6 +686,9 @@ fate-filter-edgedetect-colormix: CMD = video_filter "scale,format=gbrp,perms=ran
 FATE_FILTER_VSYNTH_VIDEO_FILTER-$(CONFIG_MEDIAN_FILTER) += fate-filter-median
 fate-filter-median: CMD = video_filter "median=radius=5"
 
+FATE_FILTER-$(call FILTERFRAMECRC, ANISO TESTSRC2 FORMAT) += fate-filter-aniso
+fate-filter-aniso: CMD = framecrc -lavfi "testsrc2=s=64x48:r=1:d=1,format=yuv420p,aniso=iterations=3:kappa=10:lambda=0.2:planes=7" -pix_fmt yuv420p
+
 FATE_FILTER_VSYNTH_VIDEO_FILTER-$(call ALLYES, PERMS_FILTER HUE_FILTER) += fate-filter-hue1 fate-filter-hue2 fate-filter-hue3
 fate-filter-hue1: CMD = video_filter "perms=random,hue=s=sin(2*PI*t)+1" -frames:v 20
 fate-filter-hue2: CMD = video_filter "perms=random,hue=h=18*n" -frames:v 20

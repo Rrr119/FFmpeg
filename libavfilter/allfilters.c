@@ -181,6 +181,7 @@ extern const FFFilter ff_vf_addroi;
 extern const FFFilter ff_vf_alphaextract;
 extern const FFFilter ff_vf_alphamerge;
 extern const FFFilter ff_vf_amplify;
+extern const FFFilter ff_vf_aniso;
 extern const FFFilter ff_vf_ass;
 extern const FFFilter ff_vf_atadenoise;
 extern const FFFilter ff_vf_avgblur;
